@@ -1,4 +1,4 @@
-# Market Watch — NASDAQ, NYSE, NSE & BSE
+# Global Market Watch — NASDAQ, NYSE, NSE, BSE & more
 
 A lightweight, shareable stock-monitoring dashboard built with Next.js. It requires **no database, no login and no user account**.
 
