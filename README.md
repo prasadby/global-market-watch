@@ -4,8 +4,8 @@ A lightweight, shareable stock-monitoring dashboard built with Next.js. It requi
 
 ## Features
 
-- Automatic quote refresh every 30 seconds.
-- NASDAQ / NYSE / NSE / BSE symbols.
+- Automatic quote refresh every 15 seconds to 5 minutes.
+- NASDAQ / NYSE / NSE / BSE symbols. etc.
 - Current price and absolute/percentage change from previous close.
 - US pre-market, regular-market and after-hours prices when supplied by the provider.
 - Market-session badge.
