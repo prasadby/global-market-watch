@@ -23,7 +23,7 @@ export default function Home() {
     tickers, setTickers, alerts, setAlerts, refreshSeconds, setRefreshSeconds,
     screenName, setScreenName, portfolioView, setPortfolioView, portfolio, setPortfolio,
     portfolioOpen, setPortfolioOpen, watchlists, setWatchlists,
-    activeWatchlist, setActiveWatchlist, order, setOrder
+    activeWatchlist, setActiveWatchlist, order, setOrder, storageReady
   } = usePersistentSettings();
 
   const [configOpen, setConfigOpen] = useState(false);
@@ -72,8 +72,14 @@ export default function Home() {
     quotes, history, loading, error, setError, lastUpdated, triggered, setTriggered,
     secondsLeft, setSecondsLeft, fetchMarketData
   } = useMarketData({
-    tickers: marketSymbols, alerts, setAlerts, refreshSeconds, notificationsEnabled,
-    soundEnabled, paused: effectiveRefreshPaused
+    tickers: marketSymbols,
+    alerts,
+    setAlerts,
+    refreshSeconds,
+    notificationsEnabled,
+    soundEnabled,
+    paused: effectiveRefreshPaused,
+    storageReady
   });
   const fetchQuotes = fetchMarketData;
 
@@ -271,7 +277,7 @@ export default function Home() {
 
   const dragHandlers = {
     start: symbol => { dragSymbol.current = symbol; },
-    over: () => {},
+    over: () => { },
     drop: target => {
       const source = dragSymbol.current;
       if (!source || source === target) return;
@@ -293,8 +299,8 @@ export default function Home() {
     let result = order.filter(s => tickers.includes(s) && (!watchSymbols || watchSymbols.has(s)));
     if (filter !== "ALL") result = result.filter(s => exchangeName(quotes[s] || { symbol: s }) === filter);
     if (sortBy === "symbol") result.sort();
-    if (sortBy === "change") result.sort((a,b) => (quotes[b]?.changePercent ?? -Infinity) - (quotes[a]?.changePercent ?? -Infinity));
-    if (sortBy === "price") result.sort((a,b) => (quotes[b]?.currentPrice ?? -Infinity) - (quotes[a]?.currentPrice ?? -Infinity));
+    if (sortBy === "change") result.sort((a, b) => (quotes[b]?.changePercent ?? -Infinity) - (quotes[a]?.changePercent ?? -Infinity));
+    if (sortBy === "price") result.sort((a, b) => (quotes[b]?.currentPrice ?? -Infinity) - (quotes[a]?.currentPrice ?? -Infinity));
     return result;
   }, [order, tickers, filter, sortBy, quotes, activeWatchlist, watchlists]);
 
@@ -376,27 +382,27 @@ export default function Home() {
 
 
       {configOpen && (
-      <ConfigPanel
-        open={configOpen}
-        screenName={screenName} setScreenName={setScreenName}
-        portfolioView={portfolioView} setPortfolioView={setPortfolioView}
-        notificationsEnabled={notificationsEnabled} enableNotifications={enableNotifications}
-        setNotificationsEnabled={setNotificationsEnabled}
-        soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled}
-        input={input} runSearch={runSearch} suggestions={suggestions} addTicker={addTicker}
-        tickers={tickers} order={order} removeTicker={removeTicker}
-        activeWatchlist={activeWatchlist} setActiveWatchlist={setActiveWatchlist}
-        watchlists={watchlists} createWatchlist={createWatchlist} deleteWatchlist={deleteWatchlist}
-        refreshSeconds={refreshSeconds} setRefreshSeconds={setRefreshSeconds} setSecondsLeft={setSecondsLeft}
-        portfolio={portfolio} updateHolding={updateHolding} removeHolding={removeHolding} addHolding={addHolding}
-        alerts={alerts} alertTicker={alertTicker} setAlertTicker={setAlertTicker}
-        alertDirection={alertDirection} setAlertDirection={setAlertDirection}
-        alertPrice={alertPrice} setAlertPrice={setAlertPrice} addAlert={addAlert} removeAlert={removeAlert}
-        setTickers={setTickers} setOrder={setOrder} setAlerts={setAlerts} setError={setError}
-        setPortfolio={setPortfolio}
-         setWatchlists={setWatchlists}
-        onSave={saveConfig} onCancel={cancelConfig} onClose={cancelConfig}
-      />
+        <ConfigPanel
+          open={configOpen}
+          screenName={screenName} setScreenName={setScreenName}
+          portfolioView={portfolioView} setPortfolioView={setPortfolioView}
+          notificationsEnabled={notificationsEnabled} enableNotifications={enableNotifications}
+          setNotificationsEnabled={setNotificationsEnabled}
+          soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled}
+          input={input} runSearch={runSearch} suggestions={suggestions} addTicker={addTicker}
+          tickers={tickers} order={order} removeTicker={removeTicker}
+          activeWatchlist={activeWatchlist} setActiveWatchlist={setActiveWatchlist}
+          watchlists={watchlists} createWatchlist={createWatchlist} deleteWatchlist={deleteWatchlist}
+          refreshSeconds={refreshSeconds} setRefreshSeconds={setRefreshSeconds} setSecondsLeft={setSecondsLeft}
+          portfolio={portfolio} updateHolding={updateHolding} removeHolding={removeHolding} addHolding={addHolding}
+          alerts={alerts} alertTicker={alertTicker} setAlertTicker={setAlertTicker}
+          alertDirection={alertDirection} setAlertDirection={setAlertDirection}
+          alertPrice={alertPrice} setAlertPrice={setAlertPrice} addAlert={addAlert} removeAlert={removeAlert}
+          setTickers={setTickers} setOrder={setOrder} setAlerts={setAlerts} setError={setError}
+          setPortfolio={setPortfolio}
+          setWatchlists={setWatchlists}
+          onSave={saveConfig} onCancel={cancelConfig} onClose={cancelConfig}
+        />
       )}
 
       <footer><span>{screenName}</span><span>{effectiveRefreshPaused ? (autoWeekendPaused ? "Auto-refresh paused for weekend" : "Auto-refresh paused") : `${refreshSeconds}-second refresh`}</span><span>Indicative market data · Verify directly with Stock Exchange for accurate information</span><span>Created by Prasad Yoganarasimha</span></footer>
