@@ -3210,3 +3210,65 @@ footer {
     min-width: 0 !important;
   }
 }
+/* ==========================================================================
+   Mobile Portfolio Collapse
+   Mobile: vertical collapse only.
+   Desktop / tablet: preserve existing portfolio behavior.
+   ========================================================================== */
+
+@media (max-width: 680px) {
+  .portfolioPanel {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+
+    transition:
+      max-height 180ms ease,
+      height 180ms ease,
+      min-height 180ms ease !important;
+  }
+
+  /* Expanded mobile portfolio */
+  .portfolioPanel.open {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  /* Collapsed mobile portfolio:
+     keep the panel horizontally full-width and collapse vertically */
+  .portfolioPanel.collapsed {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+
+    height: auto !important;
+    min-height: 52px !important;
+    max-height: 52px !important;
+
+    overflow: hidden !important;
+  }
+
+  .portfolioPanel.collapsed .portfolioHeader {
+    width: 100% !important;
+    min-height: 52px !important;
+    height: 52px !important;
+    box-sizing: border-box !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+  }
+
+  .portfolioPanel.collapsed .portfolioCollapseBtn {
+    flex: 0 0 auto !important;
+  }
+
+  /* Expanded state keeps the normal mobile header */
+  .portfolioPanel.open .portfolioHeader {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
