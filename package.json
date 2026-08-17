@@ -1,0 +1,31 @@
+{
+  "name": "global-market-watch",
+  "version": "1.0.10",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && npm run test:e2e",
+    "start": "next start",
+    "security:smoke": "node scripts/security-smoke.mjs",
+    "security:audit": "npm audit --audit-level=high",
+    "security:verify": "npm install --package-lock-only --ignore-scripts && npm audit --audit-level=high && npm run security:smoke",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "next": "16.2.12",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "yahoo-finance2": "4.0.0"
+  },
+  "type": "module",
+  "overrides": {
+    "postcss": "8.5.25",
+    "sharp": "0.35.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  }
+}

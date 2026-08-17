@@ -1,0 +1,3122 @@
+:root {
+  --bg: #F9F7F7;
+  --panel: #DBE2EF;
+  --panel2: #DBE2EF;
+  --border: #E4E7EC;
+  --text: #112D4E;
+  --muted: #667085;
+  --green: #00C805;
+  --red: #FF3B30;
+  --blue: #3F72AF;
+  --amber: #3F72AF;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+  margin: 0;
+  background: radial-gradient(circle at 15% -10%, #F2F4F7 0, var(--bg) 35%);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+main { min-height: 100vh; }
+.header {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: 16px 24px; border-bottom: 1px solid var(--border);
+  background: rgba(8, 11, 17, .94); backdrop-filter: blur(12px);
+}
+.brand { font-size: 20px; font-weight: 800; letter-spacing: -.4px; }
+.subtitle { margin-top: 3px; color: var(--muted); font-size: 11px; letter-spacing: .7px; }
+.headerActions { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 12px; }
+.connection { display: flex; align-items: center; gap: 6px; }
+.statusDot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); display: inline-block; }
+.connection.loading .statusDot { background: var(--amber); }
+.countdown b { color: var(--text); }
+.primaryBtn, .secondaryBtn, .iconBtn {
+  border: 1px solid var(--border); border-radius: 7px; padding: 8px 12px;
+  color: var(--text); background: var(--panel2);
+}
+.primaryBtn { background: var(--blue); border-color: var(--blue); color: white; font-weight: 650; }
+.secondaryBtn:hover, .iconBtn:hover { border-color: var(--blue); }
+.alertBanner { position: sticky; top: 73px; z-index: 15; }
+.alertNotice {
+  display: flex; align-items: center; gap: 7px; padding: 9px 24px;
+  background: rgba(255, 193, 69, .12); border-bottom: 1px solid rgba(242, 191, 75, .35);
+  font-size: 13px;
+}
+.alertNotice button { margin-left: auto; background: none; border: 0; color: var(--muted); font-size: 18px; }
+.configPanel {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+  padding: 18px 24px; background: var(--panel2); border-bottom: 1px solid var(--border);
+}
+.configSection h3 { margin: 0 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .7px; color: var(--muted); }
+.formRow { display: flex; gap: 8px; flex-wrap: wrap; }
+input, select {
+  min-height: 37px; border: 1px solid var(--border); border-radius: 7px;
+  background: var(--bg); color: var(--text); padding: 8px 10px; min-width: 130px;
+}
+input:focus, select:focus { outline: 1px solid var(--blue); }
+.chips, .alertList { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
+.chip, .alertItem {
+  display: flex; align-items: center; gap: 7px; border: 1px solid var(--border);
+  background: var(--bg); border-radius: 18px; padding: 5px 8px 5px 10px; font-size: 12px;
+}
+.chip button { border: 0; background: transparent; color: var(--muted); font-size: 15px; }
+.alertItem { border-radius: 6px; }
+.alertItem button { border: 0; background: transparent; color: var(--muted); font-size: 11px; }
+.hint { color: var(--muted); font-size: 11px; line-height: 1.5; margin: 10px 0 0; }
+.summaryBar {
+  display: flex; justify-content: space-between; align-items: center; gap: 15px;
+  padding: 14px 24px; border-bottom: 1px solid var(--border);
+}
+.marketPill, .sessionPill {
+  display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border);
+  border-radius: 999px; padding: 5px 9px; font-size: 11px; color: var(--muted);
+}
+.marketPill.live, .sessionPill.live { color: var(--green); border-color: rgba(53,209,139,.25); background: rgba(53,209,139,.06); }
+.marketPill.extended, .sessionPill.extended { color: var(--amber); border-color: rgba(242,191,75,.25); background: rgba(242,191,75,.06); }
+.marketPill.closed, .sessionPill.closed { color: var(--muted); }
+.updated { margin-left: 10px; color: var(--muted); font-size: 11px; }
+.disclaimer { color: var(--muted); font-size: 10px; }
+.errorBox {
+  margin: 15px 24px 0; padding: 10px 12px; border: 1px solid rgba(255,93,114,.35);
+  border-radius: 7px; background: rgba(255,93,114,.08); color: #112D4E; font-size: 12px;
+}
+.marketSection { padding: 22px 24px 4px; }
+.sectionHeading { display: flex; align-items: baseline; gap: 10px; margin-bottom: 11px; }
+.sectionHeading h2 { margin: 0; font-size: 14px; }
+.sectionHeading span { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .6px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.card {
+  background: linear-gradient(180deg, rgba(16,21,30,.98), rgba(13,18,26,.98));
+  border: 1px solid var(--border); border-radius: 11px; padding: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.12);
+}
+.card:hover { border-color: #3F72AF; }
+.cardTop, .priceRow { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.symbolLine { display: flex; align-items: baseline; gap: 7px; }
+.symbol { font-size: 15px; font-weight: 800; }
+.exchange { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+.companyName { margin-top: 3px; max-width: 210px; color: var(--muted); font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.iconBtn { border-radius: 6px; padding: 1px 7px; font-size: 17px; color: var(--muted); }
+.bigPrice { margin-top: 12px; font-size: 29px; font-weight: 800; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+.bigChange { margin-top: 3px; font-size: 13px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.positive { color: var(--green); }
+.negative { color: var(--red); }
+.neutral { color: var(--muted); }
+.sessionGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 13px; }
+.sessionBox {
+  min-width: 0; border: 1px solid var(--border); border-radius: 7px; padding: 8px;
+  background: rgba(255,255,255,.015);
+}
+.sessionBox.active { border-color: rgba(111,156,255,.55); background: rgba(111,156,255,.07); }
+.sessionBox span, .sessionBox small { display: block; color: var(--muted); font-size: 9px; }
+.sessionBox b { display: block; margin: 4px 0; font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sessionBox small { font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.indiaSession { grid-column: 1 / -1; }
+.sparkChart {
+  width: 100%;
+  height: 92px;
+  margin: 12px 0 4px;
+  background: #FFFFFF;
+  border: 1px solid #E4E7EC;
+  border-radius: 7px;
+  overflow: hidden;
+}
+.spark {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.spark polyline { fill: none; stroke-width: 2.2; vector-effect: non-scaling-stroke; }
+.sparkPositive { stroke: var(--green); }
+.sparkNegative { stroke: var(--red); }
+.sparkGridLine { stroke: #E5E7EB; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.sparkAxisLine { stroke: #98A2B3; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.sparkAxisLabel {
+  fill: #667085;
+  font-size: 8px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.sparkChartEmpty {
+  display: grid;
+  place-items: center;
+  color: #667085;
+  font-size: 9px;
+}
+.emptySpark { border-bottom: 1px dashed var(--border); height: 57px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding-top: 9px; border-top: 1px solid var(--border); }
+.stats span { color: var(--muted); font-size: 9px; }
+.stats b { display: block; color: var(--text); margin-top: 3px; font-size: 10px; }
+.alerts { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; min-height: 22px; }
+.alertTag {
+  border: 1px solid var(--border); background: transparent; border-radius: 999px;
+  padding: 3px 7px; color: var(--muted); font-size: 9px;
+}
+.alertTag.above { color: var(--green); border-color: rgba(53,209,139,.25); }
+.alertTag.below { color: var(--red); border-color: rgba(255,93,114,.25); }
+.noAlerts { color: #667085; font-size: 9px; }
+.loadingCard { display: flex; flex-direction: column; gap: 8px; min-height: 220px; }
+.loadingCard span { color: var(--muted); font-size: 11px; }
+.emptyState { margin: 60px auto; text-align: center; color: var(--muted); }
+.emptyState div { font-size: 35px; }
+.emptyState h2 { color: var(--text); font-size: 17px; }
+footer {
+  display: flex; justify-content: space-between; gap: 20px; margin-top: 30px;
+  padding: 18px 24px; border-top: 1px solid var(--border); color: #667085; font-size: 10px;
+}
+@media (max-width: 820px) {
+  .header, .summaryBar { align-items: flex-start; flex-direction: column; }
+  .headerActions { width: 100%; flex-wrap: wrap; }
+  .configPanel { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .header, .marketSection, .summaryBar, footer { padding-left: 14px; padding-right: 14px; }
+  .grid { grid-template-columns: 1fr; }
+  .sessionGrid { grid-template-columns: 1fr; }
+  .indiaSession { grid-column: auto; }
+  .stats { grid-template-columns: repeat(2, 1fr); row-gap: 8px; }
+  footer { flex-direction: column; }
+}
+
+.cardActions { display: flex; gap: 4px; }
+.dragHandle { color: #667085; font-size: 11px; letter-spacing: -3px; cursor: grab; user-select: none; }
+.cardMainButton { display: block; width: 100%; border: 0; background: transparent; color: inherit; text-align: left; padding: 0; }
+.cardMainButton:hover .bigPrice { color: var(--blue); }
+.searchAdd { display: flex; gap: 8px; }
+.autocomplete { position: relative; flex: 1; }
+.autocomplete input { width: 100%; }
+.suggestions {
+  position: absolute; left: 0; right: 0; top: 42px; z-index: 50;
+  background: #F9F7F7; border: 1px solid var(--border); border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0,0,0,.35); overflow: hidden;
+}
+.suggestions button {
+  display: grid; grid-template-columns: 85px 1fr auto; gap: 8px; align-items: center;
+  width: 100%; padding: 9px 11px; border: 0; border-bottom: 1px solid var(--border);
+  background: transparent; color: var(--text); text-align: left;
+}
+.suggestions button:hover { background: rgba(111,156,255,.09); }
+.suggestions button:last-child { border-bottom: 0; }
+.suggestions span { color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.suggestions small { color: #667085; font-size: 9px; }
+.toolbar { display: flex; align-items: center; gap: 9px; }
+.filters { display: flex; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
+.filters button, .rangeTabs button {
+  border: 0; border-right: 1px solid var(--border); background: var(--panel2); color: var(--muted);
+  padding: 7px 10px; font-size: 10px; font-weight: 700;
+}
+.filters button:last-child, .rangeTabs button:last-child { border-right: 0; }
+.filters button.active, .rangeTabs button.active { color: white; background: #E4E7EC; }
+.toolbar select { min-height: 31px; padding: 5px 8px; min-width: 105px; font-size: 10px; }
+.modalBackdrop {
+  position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center;
+  padding: 20px; background: rgba(0,0,0,.7); backdrop-filter: blur(7px);
+}
+.modal {
+  width: min(980px, 100%); max-height: 92vh; overflow: auto;
+  background: #F9FAFB; border: 1px solid #E4E7EC; border-radius: 14px;
+  box-shadow: 0 25px 80px rgba(0,0,0,.5); padding: 20px;
+}
+.modalHeader, .detailTop { display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; }
+.closeModal { border: 0; background: transparent; color: var(--muted); font-size: 27px; line-height: 1; }
+.detailTop { align-items: flex-end; margin-top: 20px; }
+.detailPrice { font-size: 38px; font-weight: 850; letter-spacing: -1.4px; }
+.rangeTabs { display: inline-flex; margin-top: 18px; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
+.detailChartWrap {
+  margin-top: 10px; height: 330px; border: 1px solid var(--border); border-radius: 9px;
+  background: linear-gradient(180deg, rgba(111,156,255,.035), rgba(0,0,0,0)); padding: 12px;
+}
+.detailChart { width: 100%; height: 100%; }
+.chartAxis { stroke: #EAECF0; stroke-width: 1; }
+.chartLinePositive, .chartLineNegative { fill: none; stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.chartLinePositive { stroke: var(--green); }
+.chartLineNegative { stroke: var(--red); }
+.chartAreaPositive { fill: rgba(53,209,139,.08); }
+.chartAreaNegative { fill: rgba(255,93,114,.08); }
+.chartEmpty { height: 100%; display: grid; place-items: center; color: var(--muted); font-size: 12px; }
+.detailStats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 12px; }
+.detailStats div { border: 1px solid var(--border); border-radius: 7px; padding: 9px; }
+.detailStats span { display: block; color: var(--muted); font-size: 9px; }
+.detailStats b { display: block; margin-top: 4px; font-size: 11px; }
+.modalFooter { margin-top: 13px; color: #667085; font-size: 10px; }
+@media (max-width: 760px) {
+  .summaryBar { align-items: stretch; }
+  .toolbar { justify-content: space-between; flex-wrap: wrap; }
+  .detailStats { grid-template-columns: repeat(2, 1fr); }
+  .detailChartWrap { height: 250px; }
+}
+
+
+/* Professional terminal-style polish */
+body {
+  background:
+    radial-gradient(900px 500px at 8% -5%, rgba(84, 121, 214, .18), transparent 58%),
+    radial-gradient(700px 420px at 100% 0%, rgba(41, 154, 125, .09), transparent 55%),
+    var(--bg);
+}
+.header { padding: 14px 28px; background: rgba(7, 10, 16, .88); border-color: rgba(255,255,255,.07); }
+.brand { font-size: 21px; letter-spacing: -.6px; }
+.brand::first-letter { filter: saturate(1.15); }
+.headerActions { gap: 8px; }
+.connection { padding: 7px 9px; border: 1px solid rgba(53,209,139,.18); border-radius: 8px; background: rgba(53,209,139,.045); }
+.countdown { padding: 7px 9px; border: 1px solid var(--border); border-radius: 8px; background: rgba(255,255,255,.02); }
+.primaryBtn { box-shadow: 0 5px 18px rgba(111,156,255,.18); }
+.overviewStrip {
+  display: grid; grid-template-columns: minmax(290px, 1.15fr) minmax(500px, 1.85fr);
+  gap: 22px; align-items: stretch; padding: 25px 28px 21px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  background: linear-gradient(180deg, rgba(18,24,35,.72), rgba(10,14,21,.25));
+}
+.overviewIntro { padding: 5px 2px; }
+.eyebrow { color: #3F72AF; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; }
+.overviewIntro h1 { margin: 7px 0 6px; font-size: clamp(24px, 3vw, 34px); line-height: 1.08; letter-spacing: -1.4px; }
+.overviewIntro p { margin: 0; max-width: 510px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.overviewMetrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+.metricCard {
+  min-height: 98px; padding: 13px 14px; border: 1px solid rgba(255,255,255,.075); border-radius: 10px;
+  background: linear-gradient(145deg, rgba(24,31,44,.9), rgba(13,18,26,.75));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+.metricCard span { display:block; color:#667085; font-size:8px; font-weight:800; letter-spacing:1.1px; }
+.metricCard b { display:block; margin-top:10px; font-size:24px; line-height:1; letter-spacing:-.6px; font-variant-numeric:tabular-nums; }
+.metricCard small { display:block; margin-top:7px; color:#667085; font-size:9px; }
+.summaryBar { padding: 12px 28px; background: rgba(8,11,17,.48); }
+.marketPill { padding: 6px 10px; }
+.updated { color:#6f7b8e; }
+.configPanel {
+  padding: 20px 28px 22px; gap: 36px; background: rgba(18,24,35,.96);
+  box-shadow: 0 12px 30px rgba(0,0,0,.16);
+}
+.configTitleRow { display:flex; align-items:flex-start; justify-content:space-between; gap:15px; }
+.configTitleRow h3 { margin-bottom:3px; }
+.configIntro { margin:0; color:#667085; font-size:10px; line-height:1.5; }
+.configBadge { padding:4px 7px; border-radius:5px; border:1px solid rgba(111,156,255,.22); background:rgba(111,156,255,.06); color:#3F72AF; font-size:8px; font-weight:800; letter-spacing:.8px; }
+.searchAdd input { min-height: 40px; background:#F9F7F7; }
+.searchAdd .primaryBtn { min-height:40px; padding-inline:16px; }
+.chip { background:#F9F7F7; border-color:#EAECF0; }
+.card {
+  position: relative; overflow: hidden; border-radius: 13px; padding: 16px;
+  border-color: rgba(255,255,255,.075);
+  background:
+    linear-gradient(145deg, rgba(18,24,35,.98), rgba(11,16,23,.98));
+  box-shadow: 0 8px 28px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.02);
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+.card::before {
+  content:""; position:absolute; inset:0 0 auto; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(111,156,255,.32), transparent); opacity:.55;
+}
+.card:hover { transform: translateY(-2px); border-color: rgba(111,156,255,.28); box-shadow:0 12px 34px rgba(0,0,0,.24); }
+.bigPrice { font-size:31px; }
+.bigChange { font-size:12px; }
+.sessionBox { background:rgba(255,255,255,.018); border-color:rgba(255,255,255,.065); }
+.sessionBox.active { box-shadow: inset 0 0 0 1px rgba(111,156,255,.16); }
+.stats { border-color:rgba(255,255,255,.065); }
+.alertTag { background:rgba(255,255,255,.018); }
+.sectionHeading { justify-content:space-between; align-items:flex-end; margin-bottom:13px; }
+.sectionHeading h2 { margin-top:4px; font-size:17px; letter-spacing:-.3px; }
+.sectionHeading > span { padding-bottom:2px; }
+.errorBox { margin-left:28px; margin-right:28px; }
+footer { padding:18px 28px; border-color:rgba(255,255,255,.06); }
+@media (max-width: 980px) {
+  .overviewStrip { grid-template-columns: 1fr; }
+  .overviewMetrics { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 760px) {
+  .overviewStrip { padding:20px 14px; }
+  .overviewMetrics { grid-template-columns: repeat(2, 1fr); }
+  .summaryBar { padding-left:14px; padding-right:14px; }
+  .configPanel { padding-left:14px; padding-right:14px; }
+  .errorBox { margin-left:14px; margin-right:14px; }
+}
+@media (max-width: 560px) {
+  .overviewIntro h1 { font-size:25px; }
+}
+
+
+.companyLogo {
+  width: 34px; height: 34px; border-radius: 8px; object-fit: contain;
+  background: #fff; border: 1px solid rgba(255,255,255,.10); flex: 0 0 auto;
+  padding: 4px;
+}
+.companyLogoFallback {
+  display: grid; place-items: center; border-radius: 8px;
+  background: linear-gradient(135deg, #E4E7EC, #F2F4F7);
+  border: 1px solid rgba(255,255,255,.10); color: #E7EDF6;
+  font-weight: 800; flex: 0 0 auto;
+}
+
+.backupRow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.fileBtn { display: inline-flex; align-items: center; cursor: pointer; }
+
+
+.alertFooter { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 9px; min-height: 28px; }
+.alertFooter .alerts { margin-top: 0; flex: 1; }
+.quickAlertBtn {
+  border: 1px solid #E4E7EC; background: #F9FAFB; color: #667085; border-radius: 6px;
+  padding: 5px 8px; font-size: 10px; font-weight: 750; white-space: nowrap;
+}
+.quickAlertBtn:hover { border-color: #3F72AF; color: #E7EDF6; background: #F2F4F7; }
+.quickAlertForm { display: flex; align-items: center; gap: 4px; flex: 0 0 auto; }
+.quickAlertForm select, .quickAlertForm input {
+  width: auto; min-width: 68px; min-height: 28px; padding: 4px 6px; font-size: 10px;
+}
+.quickAlertForm input { width: 82px; }
+.compactBtn { padding: 6px 8px !important; font-size: 10px !important; }
+.compactIconBtn { min-width: 27px; padding: 4px 7px; }
+.refreshConfig { border-top: 1px solid var(--border); }
+.refreshOptions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.refreshOptions button {
+  border: 1px solid var(--border); background: var(--panel2); color: var(--muted);
+  border-radius: 7px; padding: 7px 12px; font-size: 10px; font-weight: 750;
+}
+.refreshOptions button:hover { border-color: #667085; color: #E7EDF6; }
+.refreshOptions button.active { color: #fff; background: #DBE2EF; border-color: #3F72AF; box-shadow: inset 0 0 0 1px rgba(255,255,255,.04); }
+@media (max-width: 520px) {
+  .alertFooter { align-items: flex-start; flex-direction: column; }
+  .quickAlertForm { width: 100%; }
+  .quickAlertForm input { flex: 1; width: auto; }
+}
+
+
+.workspaceRow { display:flex; gap:8px; align-items:center; }
+.workspaceRow input { flex:1; min-width:220px; }
+.viewToggleRow { display:flex; flex-wrap:wrap; gap:18px; margin-top:12px; color:var(--muted); font-size:11px; }
+.viewToggleRow label { display:flex; align-items:center; gap:7px; cursor:pointer; }
+.viewToggleRow input { accent-color:#3F72AF; }
+.configBadge.on { color:#8de7bb; border-color:#2d6f52; background:rgba(53,209,139,.08); }
+.percentSuffix { color:var(--muted); margin-left:-7px; font-size:10px; }
+.portfolioPanel {
+  margin:16px 0; border:1px solid var(--border); border-radius:12px; background:linear-gradient(180deg,#0f151f,#F9F7F7);
+  box-shadow:0 12px 35px rgba(0,0,0,.16); overflow:hidden;
+}
+.portfolioHeader { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; padding:16px 18px; border-bottom:1px solid var(--border); }
+.portfolioHeader h2 { margin:2px 0 3px; font-size:18px; }
+.portfolioMarketGroup { padding:14px 18px; border-bottom:1px solid var(--border); }
+.portfolioGroupHeader { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; }
+.portfolioGroupHeader > div:first-child { display:flex; gap:8px; align-items:baseline; }
+.portfolioGroupHeader span, .portfolioGroupTotal span { color:var(--muted); font-size:9px; }
+.portfolioGroupTotal { text-align:right; }
+.portfolioGroupTotal b { display:block; }
+.portfolioRows { display:grid; gap:6px; }
+.portfolioPosition { display:flex; justify-content:space-between; align-items:center; gap:15px; padding:9px 10px; background:rgba(255,255,255,.018); border:1px solid #DBE2EF; border-radius:8px; }
+.positionIdentity { display:flex; align-items:center; gap:9px; }
+.positionIdentity b, .positionIdentity span, .portfolioPosition > div:last-child b, .portfolioPosition > div:last-child span { display:block; }
+.positionIdentity span, .portfolioPosition > div:last-child span { color:var(--muted); font-size:9px; margin-top:3px; }
+.portfolioPosition > div:last-child { text-align:right; }
+.portfolioEmpty, .portfolioNote { color:var(--muted); font-size:10px; }
+.portfolioNote { padding:12px 18px; }
+
+@media (max-width:600px) {
+  .workspaceRow { flex-direction:column; align-items:stretch; }
+  .portfolioPosition { align-items:flex-start; }
+}
+
+
+.marketLayout { display:grid; grid-template-columns:minmax(0, 1fr); gap:16px; align-items:start; }
+.marketLayout.withPortfolio { grid-template-columns:320px minmax(0, 1fr); }
+.marketLayout.portfolioCollapsed { grid-template-columns:36px minmax(0, 1fr); gap:10px; }
+.marketLayout.withPortfolio .marketSection { min-width:0; }
+.marketLayout .portfolioPanel { margin:0; position:sticky; top:12px; }
+.marketLayout .portfolioPanel.collapsed {
+  width:36px;
+  min-height:42px;
+  height:42px;
+  border-radius:0 10px 10px 0;
+  overflow:hidden;
+}
+.marketLayout .portfolioPanel.collapsed .portfolioHeader {
+  height:42px;
+  padding:0;
+  justify-content:center;
+  border-bottom:0;
+}
+.portfolioCollapseBtn {
+  width:30px;
+  height:30px;
+  padding:0;
+  border:1px solid var(--border);
+  border-radius:7px;
+  background:#FFFFFF;
+  color:#112D4E;
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+}
+.portfolioCollapseBtn:hover { background:#F9F7F7; }
+@media (max-width:1050px) {
+  .marketLayout.withPortfolio { grid-template-columns:270px minmax(0, 1fr); }
+  .marketLayout.portfolioCollapsed { grid-template-columns:36px minmax(0, 1fr); }
+}
+@media (max-width:850px) {
+  .marketLayout.withPortfolio { grid-template-columns:1fr; }
+  .marketLayout.portfolioCollapsed { grid-template-columns:36px minmax(0, 1fr); }
+  .marketLayout .portfolioPanel { position:sticky; }
+}
+
+
+.portfolioKpis { display:grid; grid-template-columns:1fr 1fr; gap:7px; padding:12px 14px; border-bottom:1px solid var(--border); }
+.portfolioKpis > div { padding:8px; border:1px solid #DBE2EF; border-radius:7px; background:rgba(255,255,255,.018); }
+.portfolioKpis span, .portfolioHighlights span { display:block; color:var(--muted); font-size:8px; text-transform:uppercase; letter-spacing:.06em; }
+.portfolioKpis b { display:block; margin-top:4px; font-size:12px; }
+.portfolioHighlights { display:grid; grid-template-columns:1fr 1fr; gap:7px; padding:10px 14px; border-bottom:1px solid var(--border); }
+.portfolioHighlights > div { padding:8px; border-radius:7px; background:#101722; }
+.portfolioHighlights b { display:block; margin-top:4px; font-size:11px; }
+.portfolioHighlights small { display:block; color:var(--muted); font-size:8px; margin-top:2px; }
+.portfolioPosition .positionIdentity { min-width:0; }
+.portfolioPosition .positionIdentity > div { min-width:0; }
+.portfolioPosition .positionIdentity b { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+@media (max-width:1000px) {
+}
+@media (max-width:600px) {
+  .portfolioHighlights, .portfolioKpis { grid-template-columns:1fr; }
+}
+
+
+/* v1.8 product dashboard */
+@media (max-width: 900px) {
+  .settingsGrid { grid-template-columns: 1fr; }
+  .settingsSection.settingsWide { grid-column: auto; }
+  .settingsChoices { grid-template-columns: 1fr; }
+  .refreshPicker { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .settingsShell { padding: 14px; }
+  .settingsHero { padding: 16px; flex-direction: column; align-items: stretch; }
+  .settingsHeroActions { width: 100%; }
+  .settingsHeroActions > * { flex: 1; }
+  .workspaceEditor { align-items: stretch; flex-direction: column; }
+  .watchlistToolbar { align-items: flex-start; flex-direction: column; }
+  .alertForm { grid-template-columns: 1fr 1fr; }
+  .settingsStockRow { grid-template-columns: 1fr auto; }
+  .stockMeta { display: none; }
+}
+
+/* Color-only contract — v1.10.2
+   Product UI: #F9F7F7 #DBE2EF #3F72AF #112D4E
+   Trading semantics: gains #00C805, losses #FF3B30.
+   No component/layout/chart behavior is changed in this release. */
+:root {
+  --bg: #F9F7F7;
+  --panel: #DBE2EF;
+  --panel2: #DBE2EF;
+  --text: #112D4E;
+  --muted: #667085;
+  --accent: #3F72AF;
+  --blue: #3F72AF;
+  --green: #00C805;
+  --red: #FF3B30;
+  --positive: #00C805;
+  --negative: #FF3B30;
+}
+.positive { color: #00C805 !important; }
+.negative { color: #FF3B30 !important; }
+.sparkPositive { stroke: #00C805 !important; }
+.sparkNegative { stroke: #FF3B30 !important; }
+
+/* v1.10.3 — light brokerage-style presentation.
+   CSS ONLY: no functionality, markup, data, API, or component behavior changed.
+   Financial semantics remain green/red. */
+:root {
+  --bg: #F9F7F7;
+  --panel: #FFFFFF;
+  --panel2: #FFFFFF;
+  --border: #E4E7EC;
+  --border-strong: #D0D5DD;
+  --text: #112D4E;
+  --muted: #667085;
+  --accent: #3F72AF;
+  --accent-soft: rgba(63,114,175,.08);
+  --green: #00C805;
+  --red: #FF3B30;
+  --blue: #3F72AF;
+  --amber: #3F72AF;
+  --positive: #00C805;
+  --negative: #FF3B30;
+}
+
+html, body {
+  background: #F9F7F7;
+  color: #112D4E;
+}
+
+.positive { color: #00C805 !important; }
+.negative { color: #FF3B30 !important; }
+.sparkPositive { stroke: #00C805 !important; }
+.sparkNegative { stroke: #FF3B30 !important; }
+
+/* Stock identity and quote hierarchy */
+.symbol {
+  color: #112D4E;
+  font-weight: 750;
+  letter-spacing: -.01em;
+}
+.companyName {
+  color: #667085;
+}
+.bigPrice, .price {
+  color: #112D4E;
+  font-variant-numeric: tabular-nums;
+}
+.change, .changePct, .quoteChange {
+  font-variant-numeric: tabular-nums;
+}
+.card, .stockCard, .quoteCard {
+  background: #FFFFFF;
+  border-color: #E4E7EC;
+  box-shadow: 0 1px 3px rgba(17,45,78,.06);
+}
+.card:hover, .stockCard:hover, .quoteCard:hover {
+  border-color: #D0D5DD;
+  box-shadow: 0 3px 10px rgba(17,45,78,.08);
+}
+
+/* Header / navigation */
+.header {
+  background: rgba(249,247,247,.96);
+  border-bottom-color: #E4E7EC;
+}
+.brand {
+  color: #112D4E;
+}
+.muted, .secondaryText, .stockMeta, .settingsHint {
+  color: #667085;
+}
+
+/* Controls */
+input, select, textarea {
+  background: #FFFFFF;
+  color: #112D4E;
+  border-color: #D0D5DD;
+}
+input::placeholder, textarea::placeholder {
+  color: #98A2B3;
+}
+button {
+  color: #112D4E;
+}
+.secondaryBtn, .iconBtn {
+  background: #FFFFFF;
+  color: #112D4E;
+  border-color: #D0D5DD;
+}
+.secondaryBtn:hover, .iconBtn:hover {
+  border-color: #3F72AF;
+  background: #F2F4F7;
+}
+.primaryBtn {
+  background: #3F72AF;
+  color: #FFFFFF;
+  border-color: #3F72AF;
+}
+
+/* Market/session labels: blue is informational; green/red stay financial. */
+.marketPill.live, .sessionPill.live {
+  color: #00C805;
+  background: rgba(0,200,5,.07);
+  border-color: rgba(0,200,5,.24);
+}
+.marketPill.extended, .sessionPill.extended {
+  color: #3F72AF;
+  background: rgba(63,114,175,.07);
+  border-color: rgba(63,114,175,.22);
+}
+
+/* Settings remains light and uses the same product palette. */
+.settingsShell {
+  background: #F9F7F7;
+}
+.settingsHero, .settingsSection {
+  background: #FFFFFF;
+  border-color: #E4E7EC;
+}
+.settingsIcon {
+  background: #F2F4F7;
+  color: #3F72AF;
+}
+.settingsBadge {
+  color: #3F72AF;
+  background: rgba(63,114,175,.07);
+  border-color: rgba(63,114,175,.22);
+}
+.choiceCard, .refreshPicker button, .watchlistTabs button {
+  background: #F9FAFB;
+  border-color: #E4E7EC;
+}
+.choiceCard.selected, .refreshPicker button.active,
+.watchlistTabs button.active {
+  background: rgba(63,114,175,.07);
+  border-color: rgba(63,114,175,.30);
+}
+
+/* v1.10.4 — light brokerage-style visual pass.
+   CSS ONLY. No markup, JavaScript, APIs, data, or functionality changed.
+   Reference: supplied light stock-detail/watchlist screenshots.
+   Financial movement remains green/red. */
+
+/* ---------- Overall application ---------- */
+html, body {
+  background: #F9F7F7 !important;
+  color: #112D4E;
+}
+
+body {
+  background-image: none !important;
+}
+
+.header {
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #E4E7EC !important;
+  box-shadow: 0 1px 2px rgba(17,45,78,.04);
+}
+
+.brand {
+  color: #112D4E !important;
+}
+
+.overviewStrip {
+  background: #F9F7F7 !important;
+  border-bottom: 1px solid #E4E7EC !important;
+}
+
+.overviewIntro h1 {
+  color: #112D4E !important;
+}
+
+.overviewIntro p {
+  color: #667085 !important;
+}
+
+.metricCard {
+  background: #FFFFFF !important;
+  border: 1px solid #E4E7EC !important;
+  box-shadow: 0 1px 3px rgba(17,45,78,.05) !important;
+}
+
+.metricCard span,
+.metricCard small {
+  color: #667085 !important;
+}
+
+.summaryBar {
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #E4E7EC !important;
+}
+
+.configPanel {
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #E4E7EC !important;
+  box-shadow: 0 4px 16px rgba(17,45,78,.05) !important;
+}
+
+.marketSection {
+  background: #F9F7F7 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------- Stock cards: clean watchlist / brokerage look ---------- */
+.card {
+  background: #FFFFFF !important;
+  border: 1px solid #E4E7EC !important;
+  box-shadow: 0 1px 3px rgba(17,45,78,.06) !important;
+}
+
+.card::before {
+  background: #E4E7EC !important;
+  opacity: 1 !important;
+}
+
+.card:hover {
+  transform: none !important;
+  border-color: #D0D5DD !important;
+  box-shadow: 0 3px 10px rgba(17,45,78,.08) !important;
+}
+
+.symbol {
+  color: #112D4E !important;
+  font-weight: 750 !important;
+}
+
+.exchange {
+  color: #667085 !important;
+}
+
+.companyName {
+  color: #667085 !important;
+}
+
+.bigPrice {
+  color: #112D4E !important;
+  font-weight: 750 !important;
+}
+
+/* Live/active stock price follows the same green/red visual language as the
+   price movement. This uses existing classes only; no markup changes. */
+.card:has(.bigChange.positive) .bigPrice {
+  color: #00C805 !important;
+}
+
+.card:has(.bigChange.negative) .bigPrice {
+  color: #FF3B30 !important;
+}
+
+.card:has(.bigChange.neutral) .bigPrice {
+  color: #667085 !important;
+}
+
+.bigChange.positive,
+.positive {
+  color: #00C805 !important;
+}
+
+.bigChange.negative,
+.negative {
+  color: #FF3B30 !important;
+}
+
+.neutral {
+  color: #667085 !important;
+}
+
+/* Session quote boxes */
+.sessionBox {
+  background: #F9FAFB !important;
+  border-color: #E4E7EC !important;
+}
+
+.sessionBox.active {
+  background: rgba(63,114,175,.055) !important;
+  border-color: rgba(63,114,175,.28) !important;
+  box-shadow: none !important;
+}
+
+.sessionBox span,
+.sessionBox small {
+  color: #667085 !important;
+}
+
+.sessionBox b {
+  color: #112D4E !important;
+}
+
+.sessionBox small.positive {
+  color: #00C805 !important;
+}
+
+.sessionBox small.negative {
+  color: #FF3B30 !important;
+}
+
+/* Stock statistics */
+.stats {
+  border-top-color: #E4E7EC !important;
+}
+
+.stats span {
+  color: #667085 !important;
+}
+
+.stats b {
+  color: #112D4E !important;
+}
+
+/* Sparkline financial semantics */
+.sparkPositive {
+  stroke: #00C805 !important;
+}
+
+.sparkNegative {
+  stroke: #FF3B30 !important;
+}
+
+/* ---------- Controls / tables ---------- */
+input,
+select,
+textarea {
+  background: #FFFFFF !important;
+  color: #112D4E !important;
+  border-color: #D0D5DD !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #98A2B3 !important;
+}
+
+.filters {
+  border-color: #E4E7EC !important;
+}
+
+.filters button,
+.rangeTabs button {
+  background: #FFFFFF !important;
+  color: #667085 !important;
+  border-color: #E4E7EC !important;
+}
+
+.filters button.active,
+.rangeTabs button.active {
+  background: #3F72AF !important;
+  color: #FFFFFF !important;
+}
+
+.refreshOptions button {
+  background: #FFFFFF !important;
+  color: #667085 !important;
+  border-color: #E4E7EC !important;
+}
+
+.refreshOptions button.active {
+  background: #3F72AF !important;
+  color: #FFFFFF !important;
+  border-color: #3F72AF !important;
+  box-shadow: none !important;
+}
+
+/* ---------- Portfolio ---------- */
+.portfolioPanel {
+  background: #FFFFFF !important;
+  border-color: #E4E7EC !important;
+  box-shadow: 0 2px 8px rgba(17,45,78,.06) !important;
+}
+
+.portfolioHighlights > div {
+  background: #F9FAFB !important;
+}
+
+.portfolioPosition {
+  background: #FFFFFF !important;
+  border-color: #E4E7EC !important;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  background: #FFFFFF !important;
+  border-top: 1px solid #E4E7EC !important;
+  color: #667085 !important;
+}
+
+/* ---------- Price / alert semantics must never inherit the UI theme ---------- */
+.alertTag.above {
+  color: #00C805 !important;
+  border-color: rgba(0,200,5,.25) !important;
+  background: rgba(0,200,5,.05) !important;
+}
+
+.alertTag.below {
+  color: #FF3B30 !important;
+  border-color: rgba(255,59,48,.25) !important;
+  background: rgba(255,59,48,.05) !important;
+}
+
+/* v1.10.5 — watchlist-first UX. Presentation support for inline stock search. */
+.marketViewActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.marketSearch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.marketSearch .autocomplete {
+  position: relative;
+  width: min(300px, 34vw);
+}
+
+.marketSearch input {
+  height: 34px;
+  padding: 7px 10px;
+  font-size: 10px;
+  border-radius: 7px;
+  background: #FFFFFF !important;
+  border: 1px solid #D0D5DD !important;
+  color: #112D4E !important;
+}
+
+.marketSearch input:focus {
+  border-color: #3F72AF !important;
+  box-shadow: 0 0 0 2px rgba(63,114,175,.10);
+  outline: none;
+}
+
+.marketSearch .primaryBtn {
+  height: 34px;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .marketViewActions {
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .marketSearch {
+    width: 100%;
+  }
+
+  .marketSearch .autocomplete {
+    width: 100%;
+  }
+
+  .marketSearch .primaryBtn {
+    flex: 0 0 auto;
+  }
+}
+
+/* v1.10.7 — chart axis labels. Presentation only. */
+.detailChart {
+  overflow: visible;
+}
+
+.chartGridLine {
+  stroke: rgba(17,45,78,.10);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.chartAxis {
+  stroke: rgba(17,45,78,.26);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.chartAxisLabel {
+  fill: #667085;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  dominant-baseline: alphabetic;
+}
+
+/* v1.10.8 — exchange grouping and configuration modal presentation. */
+.exchangeGroups {
+  display: grid;
+  gap: 18px;
+}
+
+.exchangeGroup {
+  min-width: 0;
+}
+
+.exchangeGroupHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 8px;
+  padding: 0 2px;
+}
+
+.exchangeGroupHeader span {
+  color: #112D4E;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+
+.exchangeGroupHeader small {
+  color: #667085;
+  font-size: 9px;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #E4E7EC;
+}
+
+
+/* v1.10.15 — independent portfolio holdings editor */
+.holdingSearch {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:8px;
+  margin-bottom:10px;
+}
+.holdingSearch .autocomplete { min-width:0; position:relative; }
+.holdingSearch input { width:100%; min-height:38px; }
+.portfolioEditor { display:grid; gap:7px; }
+.holdingRow {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 120px 140px 36px;
+  gap:7px;
+  align-items:center;
+  padding:8px;
+  border:1px solid #DBE2EF;
+  border-radius:8px;
+  background:#FFFFFF;
+}
+.holdingRow input { width:100%; }
+.holdingSymbolReadOnly { min-width:0; }
+.holdingSymbolReadOnly b {
+  display:block;
+  color:#112D4E;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.holdingSymbolReadOnly small {
+  display:block;
+  color:var(--muted);
+  font-size:8px;
+  margin-top:2px;
+}
+@media (max-width:700px) {
+  .holdingRow { grid-template-columns:1fr 1fr 36px; }
+  .holdingSymbolReadOnly { grid-column:1 / -1; }
+  .holdingSearch { grid-template-columns:1fr; }
+}
+
+/* Global Market Watch v1.0.2 — compact exchange status */
+.globalMarketStatus {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:8px 24px;
+  border-bottom:1px solid var(--border);
+  background:var(--bg);
+  min-width:0;
+}
+.globalMarketStatusTitle {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex:0 0 auto;
+}
+.globalMarketStatusTitle .eyebrow { margin:0; }
+.globalMarketStatusList {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-width:0;
+  overflow-x:auto;
+  scrollbar-width:thin;
+}
+.globalMarketStatusItem {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  flex:0 0 auto;
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:4px 8px;
+  background:var(--bg);
+  color:var(--muted);
+  font-size:10px;
+  white-space:nowrap;
+}
+.globalMarketStatusItem b { color:var(--text); font-size:10px; }
+.globalMarketStatusItem.live .statusDot { background:var(--green); }
+.globalMarketStatusItem.extended .statusDot { background:var(--amber); }
+.globalMarketStatusItem.closed .statusDot { background:var(--muted); }
+.globalMarketStatusEmpty { color:var(--muted); font-size:10px; }
+@media (max-width:820px) {
+  .globalMarketStatus {
+    align-items:flex-start;
+    flex-direction:column;
+    gap:6px;
+  }
+  .globalMarketStatusList { width:100%; }
+}
+
+
+/* Global Market Watch v1.0.5 — Configuration UX refinement
+   Configuration-only presentation pass.
+   No home-screen, market-data, alert, portfolio, or chart behavior is changed. */
+
+/* Modal shell */
+.modalBackdrop {
+  padding: 24px !important;
+  align-items: center !important;
+  background: rgba(17,45,78,.30) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.settingsShell {
+  width: min(1080px, 100%) !important;
+  max-height: min(900px, calc(100vh - 48px)) !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  display: flex;
+  flex-direction: column;
+  background: #F9F7F7 !important;
+  border: 1px solid #D0D5DD !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 70px rgba(17,45,78,.20) !important;
+}
+
+/* Fixed modal chrome keeps the actions accessible while the settings content scrolls. */
+.settingsShell > .modalHeader {
+  flex: 0 0 auto;
+  padding: 20px 24px 16px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E4E7EC;
+}
+
+.settingsShell > .modalHeader h2 {
+  margin: 5px 0 0;
+  color: #112D4E;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -.5px;
+}
+
+.settingsEyebrow {
+  color: #3F72AF;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.settingsShell .closeModal {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  border: 1px solid #E4E7EC;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #667085;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.settingsShell .closeModal:hover {
+  color: #112D4E;
+  background: #F9FAFB;
+  border-color: #D0D5DD;
+}
+
+/* Intro / import-export area */
+.settingsHero {
+  flex: 0 0 auto;
+  margin: 0 !important;
+  padding: 14px 24px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: #F9FAFB !important;
+  border: 0 !important;
+  border-bottom: 1px solid #E4E7EC !important;
+  border-radius: 0 !important;
+}
+
+.settingsHero p {
+  margin: 0;
+  color: #667085;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.settingsHeroActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.settingsHeroActions .secondaryBtn {
+  min-height: 34px;
+  padding: 0 11px;
+  font-size: 10px;
+}
+
+/* Scrollable settings content */
+.settingsGrid {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px !important;
+  padding: 18px 24px 20px !important;
+  align-content: start;
+}
+
+.settingsGrid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.settingsGrid::-webkit-scrollbar-thumb {
+  background: #D0D5DD;
+  border-radius: 99px;
+}
+
+.settingsSection {
+  min-width: 0;
+  padding: 16px !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E4E7EC !important;
+  border-radius: 12px !important;
+  box-shadow: 0 1px 2px rgba(17,45,78,.03) !important;
+}
+
+.settingsSection.settingsWide {
+  grid-column: 1 / -1;
+}
+
+.settingsSectionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #F0F2F5;
+}
+
+.settingsSectionTitle {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.settingsSectionTitle > div {
+  min-width: 0;
+}
+
+.settingsSectionTitle h3 {
+  margin: 0;
+  color: #112D4E;
+  font-size: 12px;
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -.05px;
+}
+
+.settingsSectionTitle p {
+  margin: 4px 0 0;
+  color: #667085;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.settingsIcon {
+  width: 30px !important;
+  height: 30px !important;
+  flex: 0 0 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #E4E7EC;
+  border-radius: 8px !important;
+  background: #F2F4F7 !important;
+  color: #3F72AF !important;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.settingsBadge {
+  flex: 0 0 auto;
+  padding: 4px 7px !important;
+  border-radius: 999px !important;
+  color: #3F72AF !important;
+  background: rgba(63,114,175,.07) !important;
+  border: 1px solid rgba(63,114,175,.20) !important;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .7px;
+  white-space: nowrap;
+}
+
+/* Workspace */
+.workspaceEditor {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 10px;
+}
+
+.workspaceNameField {
+  position: relative;
+  min-width: 0;
+}
+
+.workspaceNameField label {
+  display: block;
+  margin-bottom: 6px;
+  color: #112D4E;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.workspaceNameField input {
+  width: 100%;
+  min-height: 40px;
+  padding-right: 55px;
+  border-radius: 8px;
+}
+
+.workspaceNameField > span {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  color: #98A2B3;
+  font-size: 8px;
+  pointer-events: none;
+}
+
+.workspaceEditor > .secondaryBtn {
+  min-height: 40px;
+}
+
+/* Settings choices */
+.settingsChoices {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px !important;
+  margin-top: 12px;
+}
+
+.choiceCard {
+  min-width: 0;
+  min-height: 68px;
+  display: flex !important;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 11px !important;
+  border-radius: 9px !important;
+  background: #F9FAFB !important;
+  border: 1px solid #E4E7EC !important;
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease;
+}
+
+.choiceCard:hover {
+  border-color: #D0D5DD !important;
+  background: #FFFFFF !important;
+}
+
+.choiceCard.selected {
+  border-color: rgba(63,114,175,.30) !important;
+  background: rgba(63,114,175,.055) !important;
+}
+
+.choiceCard input {
+  width: 15px;
+  height: 15px;
+  margin: 1px 0 0;
+  flex: 0 0 15px;
+  accent-color: #3F72AF;
+}
+
+.choiceCard span {
+  min-width: 0;
+}
+
+.choiceCard b {
+  display: block;
+  color: #112D4E;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.choiceCard small {
+  display: block;
+  margin-top: 4px;
+  color: #667085;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+/* Refresh options */
+.refreshPicker {
+  display: grid !important;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 7px !important;
+}
+
+.refreshPicker button {
+  min-width: 0;
+  min-height: 58px;
+  padding: 8px 6px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border-radius: 8px !important;
+  background: #F9FAFB !important;
+  border: 1px solid #E4E7EC !important;
+}
+
+.refreshPicker button:hover {
+  background: #FFFFFF !important;
+  border-color: #D0D5DD !important;
+}
+
+.refreshPicker button.active {
+  background: rgba(63,114,175,.07) !important;
+  border-color: rgba(63,114,175,.30) !important;
+  color: #112D4E !important;
+}
+
+.refreshPicker button b {
+  font-size: 10px;
+  color: #112D4E;
+}
+
+.refreshPicker button span {
+  color: #667085;
+  font-size: 7px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* Search + add rows */
+.settingsSearch,
+.holdingSearch {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px !important;
+  margin: 0 !important;
+}
+
+.settingsSearch .autocomplete,
+.holdingSearch .autocomplete {
+  min-width: 0;
+  position: relative;
+}
+
+.settingsSearch input,
+.holdingSearch input {
+  width: 100%;
+  min-height: 40px;
+  border-radius: 8px;
+}
+
+.settingsSearch .primaryBtn,
+.holdingSearch .primaryBtn {
+  min-height: 40px;
+  padding: 0 13px;
+  white-space: nowrap;
+}
+
+/* Watchlist tabs */
+.watchlistToolbar {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.watchlistTabs {
+  display: flex !important;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: thin;
+}
+
+.watchlistTabs button {
+  flex: 0 0 auto;
+  min-height: 31px;
+  padding: 0 10px !important;
+  border-radius: 7px !important;
+  background: #F9FAFB !important;
+  color: #667085 !important;
+  border: 1px solid #E4E7EC !important;
+  font-size: 9px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.watchlistTabs button:hover {
+  color: #112D4E !important;
+  background: #FFFFFF !important;
+}
+
+.watchlistTabs button.active {
+  color: #FFFFFF !important;
+  background: #3F72AF !important;
+  border-color: #3F72AF !important;
+}
+
+.watchlistTabs .newWatchlistBtn {
+  color: #3F72AF !important;
+  background: rgba(63,114,175,.055) !important;
+}
+
+.dangerBtn {
+  flex: 0 0 auto;
+  min-height: 31px;
+  padding: 0 9px;
+  border: 1px solid rgba(255,59,48,.22);
+  border-radius: 7px;
+  background: rgba(255,59,48,.04);
+  color: #FF3B30;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+/* Stock list */
+.settingsStockList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.settingsStockRow {
+  min-width: 0;
+  min-height: 38px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 28px;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 7px 6px 10px;
+  border: 1px solid #E4E7EC;
+  border-radius: 8px;
+  background: #F9FAFB;
+}
+
+.settingsStockRow .stockSymbol {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #112D4E;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.settingsStockRow .stockMeta {
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+.settingsStockRow .iconBtn,
+.holdingRow .iconBtn {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  padding: 0 !important;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+}
+
+/* Portfolio rows */
+.portfolioEditor {
+  display: grid !important;
+  gap: 6px !important;
+  margin-top: 10px;
+}
+
+.holdingRow {
+  grid-template-columns: minmax(180px, 1fr) 130px 140px 28px !important;
+  gap: 8px !important;
+  min-height: 52px;
+  padding: 8px !important;
+  border: 1px solid #E4E7EC !important;
+  border-radius: 9px !important;
+  background: #F9FAFB !important;
+}
+
+.holdingRow:focus-within {
+  border-color: rgba(63,114,175,.30) !important;
+  background: #FFFFFF !important;
+}
+
+.holdingSymbolReadOnly b {
+  color: #112D4E !important;
+  font-size: 10px;
+}
+
+.holdingSymbolReadOnly small {
+  color: #667085 !important;
+  font-size: 8px !important;
+}
+
+.holdingRow input {
+  min-height: 36px;
+  border-radius: 7px;
+  font-size: 10px;
+}
+
+/* Alerts */
+.alertForm {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 7px !important;
+}
+
+.alertForm select,
+.alertForm input {
+  min-height: 38px;
+  min-width: 0;
+  border-radius: 8px;
+}
+
+.alertForm .primaryBtn {
+  min-height: 38px;
+  white-space: nowrap;
+}
+
+.alertList {
+  display: grid !important;
+  gap: 6px !important;
+  margin-top: 10px !important;
+}
+
+.alertItem {
+  min-height: 36px;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 9px !important;
+  border: 1px solid #E4E7EC;
+  border-radius: 8px !important;
+  background: #F9FAFB;
+}
+
+.alertItem span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #667085;
+  font-size: 9px;
+}
+
+.alertItem b {
+  color: #112D4E;
+}
+
+.alertItem button {
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  color: #667085;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.alertItem button:hover {
+  color: #FF3B30;
+}
+
+.settingsHint {
+  display: block;
+  margin-top: 8px;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+/* Sticky footer actions */
+.settingsShell > .modalFooter {
+  flex: 0 0 auto;
+  margin: 0 !important;
+  padding: 12px 24px !important;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  background: #FFFFFF;
+  border-top: 1px solid #E4E7EC;
+}
+
+.settingsShell > .modalFooter .primaryBtn,
+.settingsShell > .modalFooter .secondaryBtn {
+  min-width: 105px;
+  min-height: 36px;
+}
+
+/* Responsive configuration layouts */
+@media (max-width: 900px) {
+  .settingsGrid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .settingsSection.settingsWide {
+    grid-column: auto;
+  }
+
+  .settingsChoices {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .refreshPicker {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .modalBackdrop {
+    padding: 0 !important;
+    align-items: stretch !important;
+  }
+
+  .settingsShell {
+    width: 100% !important;
+    max-height: 100vh !important;
+    height: 100vh;
+    border-radius: 0 !important;
+    border: 0 !important;
+  }
+
+  .settingsShell > .modalHeader {
+    padding: 16px 16px 13px;
+  }
+
+  .settingsShell > .modalHeader h2 {
+    font-size: 19px;
+  }
+
+  .settingsHero {
+    padding: 12px 16px !important;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .settingsHeroActions {
+    width: 100%;
+  }
+
+  .settingsHeroActions > * {
+    flex: 1 1 0;
+    justify-content: center;
+  }
+
+  .settingsGrid {
+    padding: 12px 12px 16px !important;
+    gap: 10px !important;
+  }
+
+  .settingsSection {
+    padding: 13px !important;
+  }
+
+  .settingsChoices {
+    grid-template-columns: 1fr !important;
+  }
+
+  .refreshPicker {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .workspaceEditor {
+    grid-template-columns: 1fr !important;
+  }
+
+  .settingsStockList {
+    grid-template-columns: 1fr;
+  }
+
+  .watchlistToolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .watchlistTabs {
+    width: 100%;
+  }
+
+  .dangerBtn {
+    align-self: flex-start;
+  }
+
+  .holdingRow {
+    grid-template-columns: minmax(0, 1fr) minmax(90px, 1fr) 28px !important;
+  }
+
+  .holdingSymbolReadOnly {
+    grid-column: 1 / -1;
+  }
+
+  .settingsSearch,
+  .holdingSearch {
+    grid-template-columns: 1fr !important;
+  }
+
+  .settingsSearch .primaryBtn,
+  .holdingSearch .primaryBtn {
+    width: 100%;
+  }
+
+  .alertForm {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .alertForm .primaryBtn {
+    grid-column: 1 / -1;
+  }
+
+  .settingsShell > .modalFooter {
+    padding: 10px 12px !important;
+  }
+
+  .settingsShell > .modalFooter .primaryBtn,
+  .settingsShell > .modalFooter .secondaryBtn {
+    flex: 1;
+  }
+}
+
+@media (max-width: 400px) {
+  .settingsHeroActions {
+    flex-direction: column;
+  }
+
+  .refreshPicker {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .alertForm {
+    grid-template-columns: 1fr !important;
+  }
+
+  .alertForm .primaryBtn {
+    grid-column: auto;
+  }
+}
+
+
+/* Global Market Watch v1.0.6 — enterprise settings redesign
+   Scoped exclusively to .settingsShell. Home/market UI is intentionally untouched. */
+
+.settingsShell {
+  width: min(1180px, calc(100vw - 48px)) !important;
+  max-height: min(900px, calc(100vh - 40px)) !important;
+  border-radius: 18px !important;
+  background: #F9F7F7 !important;
+  border: 1px solid #DDE3EC !important;
+  box-shadow: 0 30px 90px rgba(17,45,78,.20), 0 8px 24px rgba(17,45,78,.08) !important;
+}
+
+.settingsTopbar {
+  min-height: 72px;
+  padding: 15px 20px !important;
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #E7EBF1 !important;
+}
+
+.settingsHeaderIdentity,
+.settingsHeaderRight {
+  display: flex;
+  align-items: center;
+}
+
+.settingsHeaderIdentity { gap: 11px; }
+.settingsHeaderRight { gap: 12px; }
+
+.settingsHeaderMark {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #112D4E;
+  color: #FFFFFF;
+  font-size: 16px;
+  box-shadow: 0 4px 10px rgba(17,45,78,.12);
+}
+
+.settingsTopbar .settingsEyebrow {
+  color: #667085;
+  font-size: 8px;
+  letter-spacing: 1.2px;
+}
+
+.settingsTopbar h2 {
+  margin: 3px 0 0 !important;
+  color: #112D4E !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  letter-spacing: -.35px !important;
+}
+
+.settingsLocalState {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border: 1px solid #E4E7EC;
+  border-radius: 999px;
+  background: #F9FAFB;
+  color: #667085;
+  font-size: 8px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.settingsLocalState span {
+  color: #00C805;
+  font-size: 8px;
+}
+
+.settingsTopbar .closeModal {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid #E4E7EC;
+  background: #FFFFFF;
+  color: #667085;
+  font-size: 20px;
+  transition: all .15s ease;
+}
+
+.settingsTopbar .closeModal:hover {
+  color: #112D4E;
+  background: #F2F4F7;
+  border-color: #D0D5DD;
+}
+
+.settingsHero {
+  min-height: 62px;
+  padding: 11px 20px !important;
+  background: #F7F9FC !important;
+  border-bottom: 1px solid #E7EBF1 !important;
+}
+
+.settingsHeroCopy strong {
+  display: block;
+  color: #112D4E;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.settingsHeroCopy p {
+  margin: 3px 0 0;
+  color: #667085;
+  font-size: 9px;
+}
+
+.settingsHeroActions .secondaryBtn {
+  min-height: 30px;
+  border-radius: 7px;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+/* Desktop: navigation rail + content canvas */
+.settingsWorkspace {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.settingsNav {
+  min-height: 0;
+  padding: 18px 10px;
+  background: #FFFFFF;
+  border-right: 1px solid #E7EBF1;
+  overflow-y: auto;
+}
+
+.settingsNavLabel {
+  display: block;
+  margin: 0 9px 9px;
+  color: #98A2B3;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
+
+.settingsNav a {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 10px;
+  margin-bottom: 3px;
+  border-radius: 8px;
+  color: #667085;
+  text-decoration: none;
+  transition: background .15s ease, color .15s ease;
+}
+
+.settingsNav a span {
+  width: 20px;
+  color: #98A2B3;
+  font-size: 12px;
+  text-align: center;
+}
+
+.settingsNav a b {
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.settingsNav a:hover {
+  background: #F2F4F7;
+  color: #112D4E;
+}
+
+.settingsNav a:hover span {
+  color: #3F72AF;
+}
+
+.settingsNavHint {
+  margin: 18px 9px 0;
+  padding-top: 13px;
+  border-top: 1px solid #F0F2F5;
+  color: #98A2B3;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.settingsWorkspace > .settingsGrid {
+  min-height: 0;
+  overflow-y: auto;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  padding: 18px !important;
+  gap: 12px !important;
+  background: #F9F7F7 !important;
+  scroll-behavior: smooth;
+}
+
+.settingsWorkspace > .settingsGrid::-webkit-scrollbar { width: 8px; }
+.settingsWorkspace > .settingsGrid::-webkit-scrollbar-thumb {
+  background: #D0D5DD;
+  border-radius: 99px;
+}
+
+/* Cards are deliberately flatter and more structured than the home UI. */
+.settingsWorkspace .settingsSection {
+  padding: 15px !important;
+  border: 1px solid #E3E8EF !important;
+  border-radius: 11px !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 1px 2px rgba(17,45,78,.025) !important;
+}
+
+.settingsWorkspace .settingsSection:hover {
+  border-color: #D8E0EA !important;
+  box-shadow: 0 3px 10px rgba(17,45,78,.045) !important;
+}
+
+.settingsWorkspace .settingsSectionHeader {
+  margin-bottom: 13px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid #F0F2F5;
+}
+
+.settingsWorkspace .settingsSectionTitle {
+  gap: 9px;
+}
+
+.settingsWorkspace .settingsIcon {
+  width: 28px !important;
+  height: 28px !important;
+  flex-basis: 28px;
+  border-radius: 7px !important;
+  background: #F2F4F7 !important;
+  color: #3F72AF !important;
+  border: 1px solid #E4E7EC;
+  font-size: 12px;
+}
+
+.settingsWorkspace .settingsSectionTitle h3 {
+  font-size: 11px;
+}
+
+.settingsWorkspace .settingsSectionTitle p {
+  font-size: 8.5px;
+}
+
+.settingsWorkspace .settingsBadge {
+  font-size: 7px;
+  padding: 4px 7px !important;
+}
+
+.settingsWorkspace .settingsSection.settingsWide {
+  grid-column: 1 / -1;
+}
+
+/* Modern controls */
+.settingsWorkspace input,
+.settingsWorkspace select {
+  min-height: 36px;
+  border: 1px solid #D7DEE8 !important;
+  border-radius: 7px !important;
+  box-shadow: inset 0 1px 1px rgba(17,45,78,.015);
+  font-size: 9px;
+}
+
+.settingsWorkspace input:hover,
+.settingsWorkspace select:hover {
+  border-color: #C5CFDC !important;
+}
+
+.settingsWorkspace input:focus,
+.settingsWorkspace select:focus {
+  outline: none;
+  border-color: #3F72AF !important;
+  box-shadow: 0 0 0 3px rgba(63,114,175,.10) !important;
+}
+
+.settingsWorkspace .primaryBtn {
+  min-height: 36px;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px rgba(63,114,175,.15);
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.settingsWorkspace .secondaryBtn {
+  border-radius: 7px;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+/* Workspace option cards */
+.settingsWorkspace .choiceCard {
+  min-height: 62px;
+  padding: 10px !important;
+  border-radius: 8px !important;
+  background: #FAFBFC !important;
+}
+
+.settingsWorkspace .choiceCard.selected {
+  background: #F6F9FD !important;
+  border-color: rgba(63,114,175,.28) !important;
+}
+
+/* Refresh selector */
+.settingsWorkspace .refreshPicker {
+  grid-template-columns: repeat(7, minmax(0,1fr)) !important;
+}
+
+.settingsWorkspace .refreshPicker button {
+  min-height: 54px;
+  border-radius: 7px !important;
+  background: #FAFBFC !important;
+}
+
+.settingsWorkspace .refreshPicker button.active {
+  background: #F3F7FC !important;
+  border-color: #3F72AF !important;
+  box-shadow: inset 0 0 0 1px rgba(63,114,175,.06);
+}
+
+.settingsWorkspace .refreshPicker button b { font-size: 10px; }
+.settingsWorkspace .refreshPicker button span { font-size: 7px; }
+
+/* Watchlist and portfolio rows */
+.settingsWorkspace .settingsStockRow,
+.settingsWorkspace .holdingRow,
+.settingsWorkspace .alertItem {
+  background: #FAFBFC !important;
+  border-color: #E5EAF0 !important;
+  border-radius: 7px !important;
+}
+
+.settingsWorkspace .settingsStockRow:hover,
+.settingsWorkspace .holdingRow:hover,
+.settingsWorkspace .alertItem:hover {
+  background: #FFFFFF !important;
+  border-color: #D7DEE8 !important;
+}
+
+.settingsWorkspace .watchlistTabs button {
+  min-height: 29px;
+  border-radius: 6px !important;
+  font-size: 8px;
+}
+
+.settingsWorkspace .watchlistTabs button.active {
+  box-shadow: 0 1px 3px rgba(63,114,175,.15);
+}
+
+.settingsWorkspace .settingsHint {
+  font-size: 8px;
+}
+
+/* Footer becomes an enterprise action bar */
+.settingsShell > .modalFooter {
+  min-height: 58px;
+  padding: 10px 20px !important;
+  background: #FFFFFF;
+  border-top: 1px solid #E7EBF1;
+}
+
+.settingsShell > .modalFooter .secondaryBtn,
+.settingsShell > .modalFooter .primaryBtn {
+  min-width: 96px;
+  min-height: 34px;
+  border-radius: 7px;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .settingsWorkspace { grid-template-columns: 160px minmax(0,1fr); }
+  .settingsWorkspace > .settingsGrid { grid-template-columns: 1fr; }
+  .settingsWorkspace .settingsSection.settingsWide { grid-column: auto; }
+  .settingsWorkspace .settingsChoices { grid-template-columns: 1fr 1fr !important; }
+}
+
+@media (max-width: 680px) {
+  .settingsShell {
+    width: 100% !important;
+    max-height: 100vh !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+  }
+
+  .settingsTopbar {
+    padding: 12px 14px !important;
+  }
+
+  .settingsHeaderMark {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  .settingsTopbar h2 { font-size: 16px !important; }
+  .settingsLocalState { display: none; }
+
+  .settingsHero {
+    padding: 10px 14px !important;
+  }
+
+  .settingsWorkspace {
+    grid-template-columns: 1fr;
+    overflow: hidden;
+  }
+
+  .settingsNav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 10px;
+    border-right: 0;
+    border-bottom: 1px solid #E7EBF1;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .settingsNavLabel,
+  .settingsNavHint {
+    display: none;
+  }
+
+  .settingsNav a {
+    min-height: 30px;
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0 9px;
+    background: #F7F9FC;
+    border: 1px solid #E7EBF1;
+  }
+
+  .settingsNav a span { display: none; }
+  .settingsNav a b { font-size: 8px; }
+
+  .settingsWorkspace > .settingsGrid {
+    padding: 12px !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .settingsWorkspace .settingsChoices {
+    grid-template-columns: 1fr !important;
+  }
+
+  .settingsWorkspace .refreshPicker {
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+  }
+
+  .settingsWorkspace .settingsSection.settingsWide {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 430px) {
+  .settingsHeroActions { gap: 5px; }
+  .settingsHeroActions .secondaryBtn { padding: 0 9px; }
+  .settingsWorkspace .refreshPicker {
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+  }
+}
+
+
+/* ==========================================================================
+   Global Market Watch v1.0.7
+   Enterprise Settings Design System
+   --------------------------------------------------------------------------
+   Presentation-only layer. Scoped to .settingsShell so the market workspace,
+   stock cards, charts and trading colors remain unchanged.
+   ========================================================================== */
+
+.settingsShell {
+  --settings-bg: #f8fafc;
+  --settings-surface: #ffffff;
+  --settings-surface-soft: #f8fafc;
+  --settings-border: #e4e9f0;
+  --settings-border-strong: #d5dce6;
+  --settings-text: #112d4e;
+  --settings-text-2: #344054;
+  --settings-muted: #667085;
+  --settings-subtle: #98a2b3;
+  --settings-accent: #3f72af;
+  --settings-accent-soft: #eef4fb;
+  --settings-focus: rgba(63,114,175,.16);
+  --settings-danger: #ff3b30;
+  --settings-radius: 10px;
+  --settings-radius-sm: 7px;
+  --settings-shadow: 0 18px 55px rgba(16,24,40,.14), 0 3px 10px rgba(16,24,40,.06);
+
+  color: var(--settings-text);
+  background: var(--settings-bg) !important;
+  border: 1px solid var(--settings-border) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--settings-shadow) !important;
+  overflow: hidden !important;
+}
+
+/* Header */
+.settingsShell .settingsTopbar {
+  height: 68px;
+  min-height: 68px;
+  padding: 0 20px !important;
+  background: var(--settings-surface) !important;
+  border-bottom: 1px solid var(--settings-border) !important;
+}
+
+.settingsShell .settingsHeaderMark {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: var(--settings-text);
+  box-shadow: none;
+}
+
+.settingsShell .settingsEyebrow {
+  color: var(--settings-muted) !important;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.25px;
+}
+
+.settingsShell .settingsTopbar h2 {
+  color: var(--settings-text) !important;
+  font-size: 17px !important;
+  font-weight: 750 !important;
+  letter-spacing: -.3px !important;
+}
+
+.settingsShell .settingsLocalState {
+  height: 27px;
+  padding: 0 9px;
+  background: #f8fafc;
+  border: 1px solid var(--settings-border);
+  color: var(--settings-muted);
+  font-size: 8px;
+}
+
+.settingsShell .closeModal {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--settings-border);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--settings-muted);
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.settingsShell .closeModal:hover {
+  background: #f2f4f7;
+  border-color: var(--settings-border-strong);
+  color: var(--settings-text);
+}
+
+/* Intro bar */
+.settingsShell .settingsHero {
+  min-height: 60px;
+  padding: 10px 20px !important;
+  background: #fbfcfe !important;
+  border-bottom: 1px solid var(--settings-border) !important;
+}
+
+.settingsShell .settingsHeroCopy strong {
+  color: var(--settings-text);
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.settingsShell .settingsHeroCopy p {
+  color: var(--settings-muted);
+  font-size: 8.5px;
+}
+
+/* Action buttons */
+.settingsShell .settingsHeroActions {
+  gap: 6px;
+}
+
+.settingsShell .settingsHeroActions .secondaryBtn,
+.settingsShell .modalFooter .secondaryBtn,
+.settingsShell .modalFooter .primaryBtn {
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 7px;
+  font-size: 8.5px;
+  font-weight: 750;
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+
+.settingsShell .settingsHeroActions .secondaryBtn:hover,
+.settingsShell .modalFooter .secondaryBtn:hover,
+.settingsShell .modalFooter .primaryBtn:hover {
+  transform: translateY(-1px);
+}
+
+/* Navigation rail */
+.settingsShell .settingsWorkspace {
+  background: var(--settings-bg);
+}
+
+.settingsShell .settingsNav {
+  width: 190px;
+  padding: 16px 9px;
+  background: #fff;
+  border-right: 1px solid var(--settings-border);
+}
+
+.settingsShell .settingsNavLabel {
+  margin: 0 9px 8px;
+  color: var(--settings-subtle);
+  font-size: 7px;
+  letter-spacing: 1.15px;
+}
+
+.settingsShell .settingsNav a {
+  position: relative;
+  min-height: 36px;
+  margin-bottom: 2px;
+  padding: 0 10px;
+  border-radius: 7px;
+  color: var(--settings-muted);
+  font-size: 9px;
+}
+
+.settingsShell .settingsNav a span {
+  width: 19px;
+  color: var(--settings-subtle);
+  font-size: 11px;
+}
+
+.settingsShell .settingsNav a b {
+  font-weight: 650;
+}
+
+.settingsShell .settingsNav a:hover {
+  background: #f5f7fa;
+  color: var(--settings-text);
+}
+
+/* Use a subtle left accent for the active/targeted settings section. */
+.settingsShell .settingsNav a:focus-visible {
+  outline: 2px solid var(--settings-accent);
+  outline-offset: 1px;
+  background: var(--settings-accent-soft);
+  color: var(--settings-text);
+}
+
+.settingsShell .settingsNavHint {
+  color: var(--settings-subtle);
+  font-size: 7.5px;
+}
+
+/* Main settings canvas */
+.settingsShell .settingsWorkspace > .settingsGrid {
+  padding: 16px !important;
+  gap: 10px !important;
+  background: var(--settings-bg) !important;
+}
+
+.settingsShell .settingsWorkspace > .settingsGrid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.settingsShell .settingsWorkspace > .settingsGrid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.settingsShell .settingsWorkspace > .settingsGrid::-webkit-scrollbar-thumb {
+  background: #d7dee8;
+}
+
+/* Section cards */
+.settingsShell .settingsWorkspace .settingsSection {
+  padding: 14px !important;
+  background: #fff !important;
+  border: 1px solid var(--settings-border) !important;
+  border-radius: var(--settings-radius) !important;
+  box-shadow: 0 1px 2px rgba(16,24,40,.025) !important;
+}
+
+.settingsShell .settingsWorkspace .settingsSection:hover {
+  border-color: var(--settings-border) !important;
+  box-shadow: 0 3px 12px rgba(16,24,40,.045) !important;
+}
+
+.settingsShell .settingsWorkspace .settingsSectionHeader {
+  min-height: 30px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.settingsShell .settingsWorkspace .settingsIcon {
+  width: 27px !important;
+  height: 27px !important;
+  flex-basis: 27px;
+  border: 1px solid #e6eaf0;
+  border-radius: 7px !important;
+  background: #f5f7fa !important;
+  color: var(--settings-accent) !important;
+  font-size: 11px;
+}
+
+.settingsShell .settingsWorkspace .settingsSectionTitle h3 {
+  color: var(--settings-text);
+  font-size: 10.5px;
+  font-weight: 750;
+}
+
+.settingsShell .settingsWorkspace .settingsSectionTitle p {
+  margin-top: 3px;
+  color: var(--settings-muted);
+  font-size: 8px;
+}
+
+.settingsShell .settingsWorkspace .settingsBadge {
+  padding: 4px 6px !important;
+  background: #f6f8fb !important;
+  border: 1px solid #e3e8ef !important;
+  color: var(--settings-muted) !important;
+  font-size: 6.5px;
+  letter-spacing: .65px;
+}
+
+/* Form labels */
+.settingsShell .workspaceNameField label {
+  margin-bottom: 5px;
+  color: var(--settings-text-2);
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.settingsShell .workspaceNameField > span {
+  color: var(--settings-subtle);
+  font-size: 7px;
+}
+
+/* All configuration inputs */
+.settingsShell .settingsWorkspace input,
+.settingsShell .settingsWorkspace select {
+  min-height: 35px;
+  padding: 0 9px;
+  background: #fff !important;
+  color: var(--settings-text-2);
+  border: 1px solid #d9e0e8 !important;
+  border-radius: var(--settings-radius-sm) !important;
+  font-size: 8.5px;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.settingsShell .settingsWorkspace input::placeholder {
+  color: #a1aab8;
+}
+
+.settingsShell .settingsWorkspace input:hover,
+.settingsShell .settingsWorkspace select:hover {
+  border-color: #c8d1dc !important;
+}
+
+.settingsShell .settingsWorkspace input:focus,
+.settingsShell .settingsWorkspace select:focus {
+  border-color: var(--settings-accent) !important;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--settings-focus) !important;
+}
+
+/* Choice cards */
+.settingsShell .settingsChoices {
+  gap: 7px !important;
+}
+
+.settingsShell .choiceCard {
+  min-height: 59px;
+  padding: 9px !important;
+  gap: 8px;
+  background: #fbfcfd !important;
+  border: 1px solid #e5e9ef !important;
+  border-radius: 8px !important;
+}
+
+.settingsShell .choiceCard:hover {
+  background: #fff !important;
+  border-color: #d6dee8 !important;
+}
+
+.settingsShell .choiceCard.selected {
+  background: #f5f8fc !important;
+  border-color: #bfcfe1 !important;
+}
+
+.settingsShell .choiceCard input {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--settings-accent);
+}
+
+.settingsShell .choiceCard b {
+  color: var(--settings-text-2);
+  font-size: 8.5px;
+  font-weight: 700;
+}
+
+.settingsShell .choiceCard small {
+  margin-top: 3px;
+  color: var(--settings-muted);
+  font-size: 7.5px;
+}
+
+/* Refresh segmented control */
+.settingsShell .refreshPicker {
+  gap: 5px !important;
+}
+
+.settingsShell .refreshPicker button {
+  min-height: 50px;
+  padding: 6px 4px !important;
+  background: #fbfcfd !important;
+  border: 1px solid #e5e9ef !important;
+  border-radius: 7px !important;
+  transition: all .12s ease;
+}
+
+.settingsShell .refreshPicker button:hover {
+  background: #fff !important;
+  border-color: #ccd5e0 !important;
+}
+
+.settingsShell .refreshPicker button.active {
+  background: var(--settings-accent-soft) !important;
+  border-color: var(--settings-accent) !important;
+  box-shadow: inset 0 0 0 1px rgba(63,114,175,.05) !important;
+}
+
+.settingsShell .refreshPicker button b {
+  color: var(--settings-text);
+  font-size: 9px;
+}
+
+.settingsShell .refreshPicker button span {
+  color: var(--settings-muted);
+  font-size: 6.5px;
+}
+
+/* Search / autocomplete */
+.settingsShell .settingsSearch,
+.settingsShell .holdingSearch {
+  gap: 6px !important;
+}
+
+.settingsShell .suggestions {
+  border: 1px solid var(--settings-border-strong) !important;
+  border-radius: 8px !important;
+  background: #fff !important;
+  box-shadow: 0 12px 30px rgba(16,24,40,.13) !important;
+  overflow: hidden;
+}
+
+.settingsShell .suggestions button {
+  min-height: 40px;
+  padding: 7px 9px !important;
+  border-bottom: 1px solid #f0f2f5;
+  background: #fff;
+}
+
+.settingsShell .suggestions button:hover {
+  background: #f7f9fc;
+}
+
+/* Watchlist tabs */
+.settingsShell .watchlistTabs {
+  gap: 4px;
+}
+
+.settingsShell .watchlistTabs button {
+  min-height: 28px;
+  padding: 0 9px !important;
+  background: #f8fafc !important;
+  border: 1px solid #e4e9ef !important;
+  border-radius: 6px !important;
+  color: var(--settings-muted) !important;
+  font-size: 7.5px;
+}
+
+.settingsShell .watchlistTabs button:hover {
+  color: var(--settings-text) !important;
+  background: #fff !important;
+}
+
+.settingsShell .watchlistTabs button.active {
+  background: var(--settings-accent) !important;
+  border-color: var(--settings-accent) !important;
+  color: #fff !important;
+}
+
+/* Data rows */
+.settingsShell .settingsStockRow,
+.settingsShell .holdingRow,
+.settingsShell .alertItem {
+  background: #fbfcfd !important;
+  border: 1px solid #e5e9ef !important;
+  border-radius: 7px !important;
+}
+
+.settingsShell .settingsStockRow:hover,
+.settingsShell .holdingRow:hover,
+.settingsShell .alertItem:hover {
+  background: #fff !important;
+  border-color: #d6dee8 !important;
+}
+
+.settingsShell .settingsStockRow .stockSymbol,
+.settingsShell .holdingSymbolReadOnly b {
+  color: var(--settings-text);
+  font-size: 8.5px;
+  font-weight: 750;
+}
+
+.settingsShell .settingsStockRow .stockMeta,
+.settingsShell .holdingSymbolReadOnly small {
+  color: var(--settings-muted);
+  font-size: 7px;
+}
+
+/* Compact icon actions */
+.settingsShell .iconBtn,
+.settingsShell .dangerBtn {
+  border-radius: 6px !important;
+}
+
+.settingsShell .iconBtn:hover {
+  background: #f2f4f7 !important;
+}
+
+.settingsShell .dangerBtn {
+  min-height: 28px;
+  border: 1px solid rgba(255,59,48,.16);
+  background: rgba(255,59,48,.035);
+  color: var(--settings-danger);
+  font-size: 7.5px;
+}
+
+/* Alerts */
+.settingsShell .alertForm {
+  gap: 6px !important;
+}
+
+.settingsShell .alertItem {
+  min-height: 34px;
+  padding: 5px 8px !important;
+}
+
+.settingsShell .alertItem span {
+  color: var(--settings-muted);
+  font-size: 7.5px;
+}
+
+.settingsShell .alertItem span b {
+  color: var(--settings-text);
+}
+
+/* Footer */
+.settingsShell .modalFooter {
+  min-height: 56px;
+  padding: 10px 20px !important;
+  background: #fff !important;
+  border-top: 1px solid var(--settings-border) !important;
+}
+
+.settingsShell .modalFooter .secondaryBtn {
+  background: #fff;
+  border: 1px solid #d7dee8;
+  color: var(--settings-text-2);
+}
+
+.settingsShell .modalFooter .primaryBtn {
+  background: var(--settings-accent);
+  border: 1px solid var(--settings-accent);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(63,114,175,.18);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .settingsShell *,
+  .settingsShell *::before,
+  .settingsShell *::after {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Tablet/mobile */
+@media (max-width: 900px) {
+  .settingsShell .settingsNav {
+    width: 160px;
+  }
+}
+
+@media (max-width: 680px) {
+  .settingsShell {
+    border-radius: 0 !important;
+  }
+
+  .settingsShell .settingsTopbar {
+    height: 62px;
+    min-height: 62px;
+    padding: 0 14px !important;
+  }
+
+  .settingsShell .settingsHero {
+    padding: 9px 14px !important;
+  }
+
+  .settingsShell .settingsWorkspace > .settingsGrid {
+    padding: 12px !important;
+  }
+
+  .settingsShell .settingsNav {
+    width: auto;
+    padding: 7px 9px;
+  }
+
+  .settingsShell .settingsNav a {
+    min-height: 29px;
+    border: 1px solid #e6eaf0;
+    background: #f8fafc;
+  }
+
+  .settingsShell .settingsNav a:focus-visible {
+    outline-offset: -1px;
+  }
+
+  .settingsShell .modalFooter {
+    min-height: 54px;
+    padding: 9px 12px !important;
+  }
+}
+
+
+/* v1.0.8 — Workspace option controls
+   Fixes checkbox sizing/layout without changing behavior. */
+.settingsShell .settingsWorkspace .settingsChoices {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+  width: 100%;
+}
+
+.settingsShell .settingsWorkspace .settingsChoices .choiceCard {
+  width: 100%;
+  min-width: 0;
+  min-height: 72px;
+  display: grid !important;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: start;
+  gap: 9px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.settingsShell .settingsWorkspace .settingsChoices .choiceCard > input[type="checkbox"] {
+  appearance: auto !important;
+  -webkit-appearance: checkbox !important;
+  width: 16px !important;
+  min-width: 16px !important;
+  max-width: 16px !important;
+  height: 16px !important;
+  min-height: 16px !important;
+  max-height: 16px !important;
+  margin: 1px 0 0 !important;
+  padding: 0 !important;
+  flex: none !important;
+  box-shadow: none !important;
+  accent-color: #3F72AF !important;
+}
+
+.settingsShell .settingsWorkspace .settingsChoices .choiceCard > span {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.settingsShell .settingsWorkspace .settingsChoices .choiceCard > span b {
+  display: block;
+  margin: 0;
+  color: #112D4E;
+  font-size: 9px;
+  line-height: 1.25;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.settingsShell .settingsWorkspace .settingsChoices .choiceCard > span small {
+  display: block;
+  margin-top: 4px;
+  color: #667085;
+  font-size: 7.5px;
+  line-height: 1.4;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .settingsShell .settingsWorkspace .settingsChoices {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .settingsShell .settingsWorkspace .settingsChoices {
+    grid-template-columns: 1fr !important;
+  }
+
+  .settingsShell .settingsWorkspace .settingsChoices .choiceCard {
+    min-height: 58px;
+  }
+}
+
+
+/* v1.0.9 — Settings typography refinement
+   Cosmetic only. Scoped to Configuration/Settings; home UI is untouched. */
+.settingsShell .settingsWorkspace .settingsSectionTitle h3 {
+  font-size: 12px !important;
+}
+
+.settingsShell .settingsWorkspace .settingsSectionTitle p {
+  font-size: 9.5px !important;
+}
+
+.settingsShell .settingsWorkspace .settingsSectionTitle {
+  font-size: 10px;
+}
+
+.settingsShell .settingsWorkspace .workspaceNameField label {
+  font-size: 9px !important;
+}
+
+.settingsShell .settingsWorkspace input,
+.settingsShell .settingsWorkspace select {
+  font-size: 10px !important;
+}
+
+.settingsShell .settingsWorkspace input::placeholder {
+  font-size: 9px !important;
+}
+
+.settingsShell .settingsWorkspace .choiceCard > span b {
+  font-size: 10px !important;
+}
+
+.settingsShell .settingsWorkspace .choiceCard > span small {
+  font-size: 8.5px !important;
+}
+
+.settingsShell .settingsWorkspace .refreshPicker button b {
+  font-size: 10px !important;
+}
+
+.settingsShell .settingsWorkspace .refreshPicker button span {
+  font-size: 7.5px !important;
+}
+
+.settingsShell .settingsWorkspace .watchlistTabs button {
+  font-size: 8.5px !important;
+}
+
+.settingsShell .settingsWorkspace .settingsStockRow .stockSymbol,
+.settingsShell .settingsWorkspace .holdingSymbolReadOnly b {
+  font-size: 9.5px !important;
+}
+
+.settingsShell .settingsWorkspace .settingsStockRow .stockMeta,
+.settingsShell .settingsWorkspace .holdingSymbolReadOnly small {
+  font-size: 8px !important;
+}
+
+.settingsShell .settingsWorkspace .alertItem span {
+  font-size: 8.5px !important;
+}
+
+.settingsShell .settingsWorkspace .settingsHint,
+.settingsShell .settingsWorkspace .settingsHint small {
+  font-size: 8.5px !important;
+}
+
+.settingsShell .settingsWorkspace .primaryBtn,
+.settingsShell .settingsWorkspace .secondaryBtn {
+  font-size: 9.5px !important;
+}
+
+.settingsShell .settingsNav a b {
+  font-size: 9.5px !important;
+}
+
+.settingsShell .settingsNavHint {
+  font-size: 8px !important;
+}
+
+.settingsShell .settingsHeroCopy strong {
+  font-size: 11px !important;
+}
+
+.settingsShell .settingsHeroCopy p {
+  font-size: 9px !important;
+}
+
+.settingsShell .settingsHeroActions .secondaryBtn {
+  font-size: 9.5px !important;
+}
+
+.settingsShell .modalFooter .secondaryBtn,
+.settingsShell .modalFooter .primaryBtn {
+  font-size: 9.5px !important;
+}
