@@ -3120,3 +3120,93 @@ footer {
 .settingsShell .modalFooter .primaryBtn {
   font-size: 9.5px !important;
 }
+/* ==========================================================================
+   v1.0.10 — Mobile Settings Layout
+   Keeps Configuration actions visible while allowing settings content to scroll.
+   Desktop layout remains unchanged.
+   ========================================================================== */
+
+@media (max-width: 680px) {
+  .settingsShell {
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    min-height: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    overflow: hidden !important;
+  }
+
+  .settingsShell .settingsTopbar {
+    flex: 0 0 auto !important;
+  }
+
+  .settingsShell .settingsHero {
+    flex: 0 0 auto !important;
+  }
+
+  .settingsShell .settingsWorkspace {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+
+    overflow: hidden !important;
+  }
+
+  .settingsShell .settingsNav {
+    flex: 0 0 auto !important;
+    min-height: 0 !important;
+  }
+
+  .settingsShell .settingsWorkspace > .settingsGrid {
+    min-height: 0 !important;
+    height: auto !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  .settingsShell > .modalFooter {
+    flex: 0 0 auto !important;
+    min-height: 54px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    padding: 9px 12px !important;
+
+    background: #fff !important;
+    border-top: 1px solid var(--settings-border) !important;
+
+    position: relative !important;
+    z-index: 5 !important;
+  }
+
+  .settingsShell > .modalFooter .secondaryBtn,
+  .settingsShell > .modalFooter .primaryBtn {
+    min-height: 38px !important;
+    min-width: 96px !important;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 430px) {
+  .settingsShell > .modalFooter {
+    padding: 8px 10px !important;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom)) !important;
+    gap: 8px !important;
+  }
+
+  .settingsShell > .modalFooter .secondaryBtn,
+  .settingsShell > .modalFooter .primaryBtn {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
+}
